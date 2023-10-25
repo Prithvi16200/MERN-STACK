@@ -1,0 +1,270 @@
+// Navbar.jsx
+
+import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+const  NavBar = () =>{
+    return(
+        <>
+        <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div className="container-fluid">
+                <Link className="navbar-brand" to="/"> 
+                Navbar
+                </Link>
+                <div className="collapse navbar-collapse">
+                    <ul className="navbar-nav me-auto">
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/">
+                                Home
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/contact">
+                                Contact
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/about">
+                            About
+                            </Link>
+                        </li>
+                    </ul>
+                    <Link className="btn btn-primary mx-1" to="/login">
+                        Login
+                    </Link>
+                    <Link className="btn btn-primary mx-1" to="/signup">
+                        Signup
+                    </Link>
+                </div>
+            </div>
+        </nav>
+        </>
+    );
+};
+
+
+export default NavBar;
+
+
+
+// App.js
+
+import React from 'react';
+import Home from './pages/Home';
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import { BrowserRouter,Routes,Route } from "react-router-dom";
+import NavBar from './component/Navbar';
+const App = () => {
+  return(
+    <BrowserRouter>
+    <NavBar />
+    <Routes>
+      <Route element={<Home />} path="/"/>
+      <Route element={<About />} path="/About" />
+      <Route element={<Contact />} path="/Contact" />
+      <Route element= {<Login/>}path="/login" />
+            <Route element= {<Signup/>}path="/signup" />
+    </Routes>
+    </BrowserRouter>   
+  );
+};
+
+export default App;
+
+
+
+// Home.jsx
+
+import React from"react";
+
+const Home = () =>{
+    return(
+        <>
+        <h1>This is homepage </h1>
+        <input type="text" />
+        </>
+    );
+}
+export default Home;
+
+// About.jsx
+
+import React from"react";
+
+const About = () =>{
+    return(
+        <>
+        <h1> This is About page. </h1>
+        <input type="text" />
+        </>
+    );
+}
+export default About;
+
+
+//Contact.jsx
+
+import React from"react";
+
+const Contact = () =>{
+    return(
+        <>
+        <h1>This is contact page </h1>
+        <input type="text" />
+        </>
+    );
+}
+export default Contact;
+
+
+// Login.jsx
+
+import React from 'react';
+import './Login.css';
+
+function Login() {
+  const handleLogin = (event) => {
+    event.preventDefault(); 
+
+    const username = event.target.username.value;
+    const password = event.target.password.value;
+
+  
+    console.log(`Logging in with username: ${username} and password: ${password}`);
+  }
+
+  return (
+    <div className="login-container">
+      <h1>Login</h1>
+      <form className="login-form" onSubmit={handleLogin}>
+        <input type="text" name="username" placeholder="Username" />
+        <input type="password" name="password" placeholder="Password" />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
+}
+
+export default Login;
+
+
+// Login.css
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #0074d9;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+
+// Signup.jsx
+
+import React from 'react';
+import './Signup.css';
+
+function Signup() {
+  const handleSignup = (event) => {
+    event.preventDefault(); 
+
+    const username = event.target.username.value;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    
+  }
+
+  return (
+    <div className="signup-container">
+      <h1>Sign Up</h1>
+      <form className="signup-form" onSubmit={handleSignup}>
+        <input type="text" name="username" placeholder="Username" />
+        <input type="email" name="email" placeholder="Email" />
+        <input type="password" name="password" placeholder="Password" />
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+  );
+}
+
+export default Signup;
+
+
+// Signup.css
+
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #0074d9;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
