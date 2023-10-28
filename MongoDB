@@ -1,0 +1,110 @@
+// index.js
+
+// const express = require('express');
+// var http = require('http');
+// const app = express();
+
+
+// http.createServer(function (req, res) {
+//   res.end('Hello World!');
+// }).listen(8080)
+
+// console.log('Server is running')
+
+const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
+app.use(express.json());
+const route = require('./src/routes/route');
+const PORT = 8080;
+mongoose.connect("mongodb+srv://prithviupai2003:123@mongoDB@cluster0.ejnkby0.mongodb.net/")
+.then(() => { console.log('Connected to database')})
+.catch(() => { console.log('error')})
+app.use('/', route);
+app.listen(PORT, () => {
+  console.log(`Server is running ${PORT}`);
+});
+
+
+//Route.js
+
+const express = require('express');
+
+const mongoose = require('mongoose');
+const {createStudent} = require('../controller/studentcontroller')
+const router = express.Router();
+router.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+router.post('/create', createStudent)
+
+module.exports = router;
+
+
+//package.json
+
+{
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.6.3",
+    "nodemon": "^3.0.1"
+  },
+  "name": "node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
+
+
+
+//studentcontroller.js
+
+const express = require('express');
+const mongoose = require('mongoose');
+const studentModel = require('../models/studentmodel');
+
+const createStudent = async function(req, res){
+    let student = req.body;
+    let {fname, lname, email, password, address} = student;
+
+    if(!fname || !lname || !email || !password || !address) {
+        return res.send({message: "Please fill all fields"});
+    }
+
+    let createStu = await studentModel.create(student)
+    return res.send({message: createStu});
+}
+
+module.exports.createStudent = createStudent;
+
+
+//studentmodel.js
+
+const mongoose = require('mongoose');
+const studentSchema = mongoose.Schema({
+    fname : {
+        type: String
+    },
+    lname : {
+        type: String
+    },
+    email : {
+        type: String,
+        require: true,
+        unique: true
+    },
+    password : {
+        type: String,
+        require: true
+    },
+    address : {
+        type: String,
+        require: true
+    },
+});
